@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    tools:layout_editor_absoluteY="81dp">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/cookieEater2"
+            android:layout_width="58dp"
+            android:layout_height="45dp"
+            android:layout_below="@+id/cookie"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="236dp"
+            android:layout_marginTop="36dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/cookie_monster" />
+
+        <Button
+            android:id="@+id/cookie"
+            android:layout_width="218dp"
+            android:layout_height="191dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="65dp"
+            android:background="@drawable/cookie"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.312" />
+
+        <TextView
+            android:id="@+id/scoreView"
+            android:layout_width="134dp"
+            android:layout_height="27dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="21dp"
+            android:text="Score: "
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.034"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <TextView
+            android:id="@+id/timeView"
+            android:layout_width="90dp"
+            android:layout_height="31dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="31dp"
+            android:layout_marginTop="17dp"
+            android:text="Time: "
+            tools:layout_editor_absoluteX="305dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <Button
+            android:id="@+id/exit"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="38dp"
+            android:text="Exit"
+            tools:layout_editor_absoluteX="51dp"
+            tools:layout_editor_absoluteY="366dp" />
+
+        <Button
+            android:id="@+id/reset"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="37dp"
+            android:layout_marginBottom="39dp"
+            android:text="Reset"
+            tools:layout_editor_absoluteX="51dp"
+            tools:layout_editor_absoluteY="430dp" />
+
+        <Button
+            android:id="@+id/upgrade_extra"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="100dp"
+            android:text="Upgrade Extra"
+            tools:layout_editor_absoluteX="51dp"
+            tools:layout_editor_absoluteY="366dp" />
+
+        <Button
+            android:id="@+id/upgrade"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="39dp"
+            android:layout_marginBottom="98dp"
+            android:text="Upgrade"
+            tools:layout_editor_absoluteX="51dp"
+            tools:layout_editor_absoluteY="430dp" />
+
+        <ImageView
+            android:id="@+id/cookieEater1"
+            android:layout_width="58dp"
+            android:layout_height="45dp"
+            android:layout_below="@+id/cookie"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="83dp"
+            android:layout_marginTop="37dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/cookie_monster" />
+
+        <TextView
+            android:id="@+id/cookieEaterText1"
+            android:layout_width="78dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/cookieEater1"
+            android:layout_alignRight="@+id/cookieEater1"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="-15dp"
+            android:layout_marginRight="-4dp"
+            android:layout_marginBottom="338dp"
+            android:gravity="center"
+            android:lines="2"
+            android:scrollHorizontally="false"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearance"
+            android:textColor="@android:color/black"
+            android:textColorLink="@android:color/white"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cookieEaterText2"
+            android:layout_width="78dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/cookieEater2"
+            android:layout_alignRight="@+id/cookieEater2"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="144dp"
+            android:layout_marginRight="-162dp"
+            android:layout_marginBottom="349dp"
+            android:gravity="center"
+            android:lines="2"
+            android:scrollHorizontally="false"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearance"
+            android:textColor="@android:color/black"
+            android:textColorLink="@android:color/white"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>
