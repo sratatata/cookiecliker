@@ -13,6 +13,8 @@ import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = MainActivity.class.getName();
+
     private Integer score = 0;
     private Double time = 0.0;
     private boolean isPlaying = false;
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void reset(View view) {
-        Log.d("reset", "RESET");
+        Log.d(TAG, "Reset");
         isPlaying = false;
         score = 0;
         time = 0.0;
@@ -107,16 +109,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void upgradeExtra(View view) {
+        Log.d(TAG, "Extra upgrade");
         score = extraCookieMonster.buyUpgrade(score);
         updateScore();
     }
 
     public void upgradeBasic(View view) {
+        Log.d(TAG, "Basic upgrade");
         score = cookieMonster.buyUpgrade(score);
         updateScore();
     }
 
     public void exitGame(View view) {
+        Log.d(TAG, "Exiting - Bye bye!");
         finishAndRemoveTask();
     }
 }
