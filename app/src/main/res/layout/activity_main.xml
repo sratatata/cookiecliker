@@ -30,19 +30,6 @@
             android:visibility="invisible"
             app:srcCompat="@drawable/cookie_monster" />
 
-        <Button
-            android:id="@+id/cookie"
-            android:layout_width="218dp"
-            android:layout_height="191dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="65dp"
-            android:background="@drawable/cookie"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.312" />
 
         <TextView
             android:id="@+id/scoreView"
@@ -71,6 +58,22 @@
             tools:layout_editor_absoluteY="16dp" />
 
         <Button
+            android:id="@+id/cookie"
+            android:layout_width="218dp"
+            android:layout_height="191dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="65dp"
+            android:background="@drawable/cookie"
+            android:onClick="pressCookie"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.312" />
+
+
+        <Button
             android:id="@+id/exit"
             android:layout_width="100dp"
             android:layout_height="40dp"
@@ -79,6 +82,7 @@
             android:layout_marginEnd="35dp"
             android:layout_marginBottom="38dp"
             android:text="Exit"
+            android:onClick="exitGame"
             tools:layout_editor_absoluteX="51dp"
             tools:layout_editor_absoluteY="366dp" />
 
@@ -91,6 +95,7 @@
             android:layout_marginStart="37dp"
             android:layout_marginBottom="39dp"
             android:text="Reset"
+            android:onClick="reset"
             tools:layout_editor_absoluteX="51dp"
             tools:layout_editor_absoluteY="430dp" />
 
@@ -103,6 +108,7 @@
             android:layout_marginEnd="35dp"
             android:layout_marginBottom="100dp"
             android:text="Upgrade Extra"
+            android:onClick="upgradeExtra"
             tools:layout_editor_absoluteX="51dp"
             tools:layout_editor_absoluteY="366dp" />
 
@@ -115,6 +121,7 @@
             android:layout_marginStart="39dp"
             android:layout_marginBottom="98dp"
             android:text="Upgrade"
+            android:onClick="upgradeBasic"
             tools:layout_editor_absoluteX="51dp"
             tools:layout_editor_absoluteY="430dp" />
 
@@ -166,7 +173,6 @@
             android:textColor="@android:color/black"
             android:textColorLink="@android:color/white"
             android:textStyle="bold" />
-
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
