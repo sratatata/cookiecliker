@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CookieClicker</string>
+    <string name="reset_btn_txt">Reset</string>
+    <string name="exit_btn_txt">Exit</string>
+    <string name="upgrade_btn_txt">Upgrade</string>
+    <string name="upgrade_extra_btn_txt">Upgrade Extra</string>
 </resources>
