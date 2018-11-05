@@ -1,6 +1,7 @@
 package geek.galaxy.cookieclicker;
 
 import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
     private CookieMonster cookieMonster = null;
     private ExtraCookieMonster extraCookieMonster = null;
+
+    private Vibrator vibrator = null;
 
     private Handler handler = new Handler();
 
@@ -73,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         cookieMonster = new CookieMonster((ImageView) findViewById(R.id.cookieEater1), (TextView) findViewById(R.id.cookieEaterText1));
         extraCookieMonster = new ExtraCookieMonster((ImageView) findViewById(R.id.cookieEater2), (TextView) findViewById(R.id.cookieEaterText2));
 
+        vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
 
     }
 
@@ -95,6 +99,11 @@ public class MainActivity extends AppCompatActivity {
             updateScore();
             isPlaying = true;
         }
+        vibrate();
+    }
+
+    public void vibrate(){
+        vibrator.vibrate(100);
     }
 
     public void reset(View view) {

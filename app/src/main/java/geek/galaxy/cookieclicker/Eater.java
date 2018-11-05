@@ -31,6 +31,7 @@ public abstract class Eater {
     public Integer buyUpgrade(Integer money){
         if(money >= cost){
             isBought = true;
+            multiplyView.setVisibility(View.VISIBLE);
             iconView.setVisibility(View.VISIBLE);
             addMulitpler();
             return money - cost;
@@ -43,6 +44,9 @@ public abstract class Eater {
 
     public void reset(){
         this.multiply = 1;
+        multiplyView.setVisibility(View.INVISIBLE);
+        iconView.setVisibility(View.INVISIBLE);
+        updateText();
     }
 
     private void updateText(){
