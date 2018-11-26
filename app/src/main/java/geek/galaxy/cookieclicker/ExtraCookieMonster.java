@@ -10,4 +10,11 @@ public class ExtraCookieMonster extends Eater {
         this.basicScore = 100;
         this.cost = 1000;
     }
+
+    @Override
+    public void addMultipler(){
+        this.multiply += 5;
+        this.updateText();
+    }
+
 }

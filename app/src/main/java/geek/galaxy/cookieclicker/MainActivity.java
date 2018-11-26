@@ -1,5 +1,6 @@
 package geek.galaxy.cookieclicker;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
@@ -11,21 +12,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getName();
 
-    private Integer score = 0;
+    public static Integer score = 0;
     private Double time = 0.0;
     private boolean isPlaying = false;
     private TextView timeView = null;
     private TextView scoreView = null;
 
+    private ArrayList<Integer> highScore;
+
     private Button cookieButton;
     private Button upgrade;
     private Button upgradeExtra;
     private Button resetButton;
+    private Button highScoreButton;
     private Button exitButton;
 
     private CookieMonster cookieMonster = null;
@@ -70,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         upgrade = findViewById(R.id.upgrade);
         upgradeExtra = findViewById(R.id.upgrade_extra);
 
+        highScoreButton = findViewById(R.id.score);
         resetButton = findViewById(R.id.reset);
         exitButton = findViewById(R.id.exit);
 
@@ -77,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
         extraCookieMonster = new ExtraCookieMonster((ImageView) findViewById(R.id.cookieEater2), (TextView) findViewById(R.id.cookieEaterText2));
 
         vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+
+        highScore = new ArrayList<Integer>();
 
     }
 
@@ -106,9 +114,14 @@ public class MainActivity extends AppCompatActivity {
         vibrator.vibrate(100);
     }
 
+    public ArrayList<Integer> getHighScore() {
+        return highScore;
+    }
+
     public void reset(View view) {
         Log.d(TAG, "Reset");
         isPlaying = false;
+        highScore.add(score);
         score = 0;
         time = 0.0;
         cookieMonster.reset();
@@ -132,5 +145,12 @@ public class MainActivity extends AppCompatActivity {
     public void exitGame(View view) {
         Log.d(TAG, "Exiting - Bye bye!");
         finishAndRemoveTask();
+    }
+
+    public void goToScore(View view) {
+        Log.d(TAG, "Go to HighScore View");
+        Intent intent = new Intent(MainActivity.this, HighScore.class);
+        startActivity(intent);
+        //TODO SEND TO SECOND ACIVITY ARRAY WITH HIGHSCORE
     }
 }
