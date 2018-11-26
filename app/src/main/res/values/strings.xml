@@ -5,4 +5,5 @@
     <string name="upgrade_btn_txt">Upgrade</string>
     <string name="upgrade_extra_btn_txt">Upgrade Extra</string>
     <string name="title_activity_high_score">HighScore</string>
+    <string name="high_score_txt">High score</string>
 </resources>

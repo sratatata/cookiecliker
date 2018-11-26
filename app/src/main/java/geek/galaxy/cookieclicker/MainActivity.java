@@ -7,12 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,18 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView timeView = null;
     private TextView scoreView = null;
 
-    private ArrayList<Integer> highScore;
-
-    private Button cookieButton;
-    private Button upgrade;
-    private Button upgradeExtra;
-    private Button resetButton;
-    private Button highScoreButton;
-    private Button exitButton;
-
-    private CookieMonster cookieMonster = null;
-    private ExtraCookieMonster extraCookieMonster = null;
-
     private Vibrator vibrator = null;
 
     private Handler handler = new Handler();
@@ -46,22 +31,12 @@ public class MainActivity extends AppCompatActivity {
             if (!isPlaying) {
                 return;
             }
-            if (time > 1d) {
-                score += 1;
-            }
-            if (time % 2 == 0) {
-                score += cookieMonster.getEatedCookies();
-            }
-            if (time % 4 == 0) {
-                score += extraCookieMonster.getEatedCookies();
-            }
             time += 1d;
             updateTime();
             updateScore();
             handler.postDelayed(timeRunnable, 1000);
         }
     };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,30 +46,7 @@ public class MainActivity extends AppCompatActivity {
         scoreView = findViewById(R.id.scoreView);
         timeView = findViewById(R.id.timeView);
 
-        cookieButton = findViewById(R.id.cookie);
-        upgrade = findViewById(R.id.upgrade);
-        upgradeExtra = findViewById(R.id.upgrade_extra);
-
-        highScoreButton = findViewById(R.id.score);
-        resetButton = findViewById(R.id.reset);
-        exitButton = findViewById(R.id.exit);
-
-        cookieMonster = new CookieMonster((ImageView) findViewById(R.id.cookieEater1), (TextView) findViewById(R.id.cookieEaterText1));
-        extraCookieMonster = new ExtraCookieMonster((ImageView) findViewById(R.id.cookieEater2), (TextView) findViewById(R.id.cookieEaterText2));
-
         vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
-
-        highScore = new ArrayList<Integer>();
-
-    }
-
-    public void updateTime() {
-        DecimalFormat df = new DecimalFormat("0.0");
-        timeView.setText("Time: " + df.format(time));
-    }
-
-    public void updateScore() {
-        scoreView.setText("Score: " + score.toString());
     }
 
     public void pressCookie(View view) {
@@ -107,44 +59,25 @@ public class MainActivity extends AppCompatActivity {
             updateScore();
             isPlaying = true;
         }
-        vibrate();
-    }
-
-    public void vibrate(){
         vibrator.vibrate(100);
     }
 
-    public ArrayList<Integer> getHighScore() {
-        return highScore;
+    public void updateTime() {
+        DecimalFormat df = new DecimalFormat("0.0");
+        timeView.setText("Time: " + df.format(time));
     }
 
-    public void reset(View view) {
-        Log.d(TAG, "Reset");
-        isPlaying = false;
-        highScore.add(score);
-        score = 0;
-        time = 0.0;
-        cookieMonster.reset();
-        extraCookieMonster.reset();
-        updateTime();
-        updateScore();
-    }
-
-    public void upgradeExtra(View view) {
-        Log.d(TAG, "Extra upgrade");
-        score = extraCookieMonster.buyUpgrade(score);
-        updateScore();
-    }
-
-    public void upgradeBasic(View view) {
-        Log.d(TAG, "Basic upgrade");
-        score = cookieMonster.buyUpgrade(score);
-        updateScore();
+    public void updateScore(){
+        scoreView.setText("Score: " +score.toString());
     }
 
     public void exitGame(View view) {
         Log.d(TAG, "Exiting - Bye bye!");
         finishAndRemoveTask();
+    }
+
+    public void reset(View view) {
+       // reset
     }
 
     public void goToScore(View view) {
@@ -153,4 +86,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         //TODO SEND TO SECOND ACIVITY ARRAY WITH HIGHSCORE
     }
+
+    public void upgradeBasic(View view) {
+        // Obsługa Buttona Basic
+    }
+
+    public void upgradeExtra(View view) {
+        // Obsługa Buttona Extra
+    }
+
 }

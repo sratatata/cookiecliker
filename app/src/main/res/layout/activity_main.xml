@@ -128,7 +128,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:onClick="goToScore"
-            android:text="High score" />
+            android:text="@string/high_score_txt" />
 
         <Button
             android:id="@+id/exit"
