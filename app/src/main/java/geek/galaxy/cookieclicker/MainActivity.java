@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "Go to HighScore View");
         Intent intent = new Intent(MainActivity.this, HighScore.class);
         startActivity(intent);
-        //TODO SEND TO SECOND ACIVITY ARRAY WITH HIGHSCORE
     }
 
     public void upgradeBasic(View view) {
