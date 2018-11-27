@@ -24,14 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView timeView = null;
     private TextView scoreView = null;
 
-    private ArrayList<Integer> highScore;
-
-    private Button cookieButton;
-    private Button upgrade;
-    private Button upgradeExtra;
-    private Button resetButton;
-    private Button highScoreButton;
-    private Button exitButton;
+    private static ArrayList<Integer> highScore;
 
     private CookieMonster cookieMonster = null;
     private ExtraCookieMonster extraCookieMonster = null;
@@ -71,20 +64,12 @@ public class MainActivity extends AppCompatActivity {
         scoreView = findViewById(R.id.scoreView);
         timeView = findViewById(R.id.timeView);
 
-        cookieButton = findViewById(R.id.cookie);
-        upgrade = findViewById(R.id.upgrade);
-        upgradeExtra = findViewById(R.id.upgrade_extra);
-
-        highScoreButton = findViewById(R.id.score);
-        resetButton = findViewById(R.id.reset);
-        exitButton = findViewById(R.id.exit);
-
         cookieMonster = new CookieMonster((ImageView) findViewById(R.id.cookieEater1), (TextView) findViewById(R.id.cookieEaterText1));
         extraCookieMonster = new ExtraCookieMonster((ImageView) findViewById(R.id.cookieEater2), (TextView) findViewById(R.id.cookieEaterText2));
 
         vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
 
-        highScore = new ArrayList<Integer>();
+        highScore = new ArrayList<>();
 
     }
 
@@ -114,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         vibrator.vibrate(100);
     }
 
-    public ArrayList<Integer> getHighScore() {
+    public static ArrayList<Integer> getHighScore() {
         return highScore;
     }
 
@@ -151,6 +136,5 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "Go to HighScore View");
         Intent intent = new Intent(MainActivity.this, HighScore.class);
         startActivity(intent);
-        //TODO SEND TO SECOND ACIVITY ARRAY WITH HIGHSCORE
     }
 }
