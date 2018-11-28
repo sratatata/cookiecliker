@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HighScore"
+            android:name=".highscore.HighScoreActivity"
             android:label="@string/title_activity_high_score"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
