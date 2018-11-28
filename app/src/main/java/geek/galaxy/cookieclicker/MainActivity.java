@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private Runnable timeRunnable = new Runnable() {
         @Override
         public void run() {
-            // #11 if-statement example
+            //EX#11 if-statement example
             if (!isPlaying) {
                 return;
             }
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pressCookie(View view) {
-        // #12 if-statement example
+        //EX#12 if-statement example
         if (isPlaying) {
             incrementScore();
             updateScoreLabel();

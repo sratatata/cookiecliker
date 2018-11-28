@@ -50,7 +50,7 @@ public class HighScoreActivity extends AppCompatActivity {
         sb.append("High Scores:").append(NEW_LINE);
         sb.append("-----------").append(NEW_LINE);
 
-        // #1 For loop example
+        //EX#1 For loop example
         for(int i=1; i<scores.length+1; i++){
             sb.append(String.format("%s - %s", i, scores[i-1])).append(NEW_LINE);
         }

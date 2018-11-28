@@ -11,7 +11,7 @@ public class RandomHighScore implements HighScore {
     }
 
     private void initializeWithRandomScores(){
-        // #1 For loop example
+        //EX#1 For loop example
         for(int i=0; i<this.highScores.length; i++){
             highScores[i] = getRandomScore();
         }
