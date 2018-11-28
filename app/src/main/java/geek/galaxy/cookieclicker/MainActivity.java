@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,9 +16,16 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getName();
+    public static final double SECOND = 1d;
+    public static final int POINT = 1;
+    public static final int LENGTH_OF_SECOND = 1000;
+    public static final int COOKIE_MONSTER_FREQUENCY = 2;
+    public static final int EXTRA_COOKIE_MONSTER_FREQENCY = 4;
+    public static final int INITIAL_SCORE = 0;
+    public static final double INITIAL_TIME = 0.0;
 
-    public static Integer score = 0;
-    private Double time = 0.0;
+    public static Integer score = INITIAL_SCORE;
+    private Double time = INITIAL_TIME;
     private boolean isPlaying = false;
     private TextView timeView = null;
     private TextView scoreView = null;
@@ -39,19 +45,26 @@ public class MainActivity extends AppCompatActivity {
             if (!isPlaying) {
                 return;
             }
-            if (time > 1d) {
-                score += 1;
+            // every second
+            if (time > SECOND) {
+                score += POINT;
             }
-            if (time % 2 == 0) {
+
+            // every 2 seconds
+            if (time % COOKIE_MONSTER_FREQUENCY == 0) {
                 score += cookieMonster.getEatedCookies();
             }
-            if (time % 4 == 0) {
+
+            // every 4 seconds
+            if (time % EXTRA_COOKIE_MONSTER_FREQENCY == 0) {
                 score += extraCookieMonster.getEatedCookies();
             }
-            time += 1d;
-            updateTime();
-            updateScore();
-            handler.postDelayed(timeRunnable, 1000);
+            // increment counter timer
+            time += SECOND;
+
+            updateTimeLabel();
+            updateScoreLabel();
+            handler.postDelayed(timeRunnable, LENGTH_OF_SECOND);
         }
     };
 
@@ -73,23 +86,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void updateTime() {
+    public void updateTimeLabel() {
         DecimalFormat df = new DecimalFormat("0.0");
-        timeView.setText("Time: " + df.format(time));
+        timeView.setText(String.format("Time: %s", df.format(time)));
     }
 
-    public void updateScore() {
-        scoreView.setText("Score: " + score.toString());
+    public void updateScoreLabel() {
+        scoreView.setText(String.format("Score: %s", score.toString()));
     }
 
     public void pressCookie(View view) {
         if (isPlaying) {
-            score += 1;
-            updateScore();
+            score += POINT;
+            updateScoreLabel();
         } else {
             handler.postDelayed(timeRunnable, 100);
-            score = 1;
-            updateScore();
+            score = POINT;
+            updateScoreLabel();
             isPlaying = true;
         }
         vibrate();
@@ -107,24 +120,24 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "Reset");
         isPlaying = false;
         highScore.add(score);
-        score = 0;
-        time = 0.0;
+        score = INITIAL_SCORE;
+        time = INITIAL_TIME;
         cookieMonster.reset();
         extraCookieMonster.reset();
-        updateTime();
-        updateScore();
+        updateTimeLabel();
+        updateScoreLabel();
     }
 
     public void upgradeExtra(View view) {
         Log.d(TAG, "Extra upgrade");
         score = extraCookieMonster.buyUpgrade(score);
-        updateScore();
+        updateScoreLabel();
     }
 
     public void upgradeBasic(View view) {
         Log.d(TAG, "Basic upgrade");
         score = cookieMonster.buyUpgrade(score);
-        updateScore();
+        updateScoreLabel();
     }
 
     public void exitGame(View view) {
