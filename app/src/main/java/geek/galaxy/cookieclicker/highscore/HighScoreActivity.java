@@ -44,6 +44,7 @@ public class HighScoreActivity extends AppCompatActivity {
     }
 
     private void renderOn(TextView highScoreText) {
+        //TODO #3764 (Optional) Change implementation to use for-each over ArrayList. But only for 10 first elements.
         int[] scores = highScore.sortedScores(HighScore.DESCENDING );
 
         StringBuilder sb = new StringBuilder();
