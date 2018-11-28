@@ -12,9 +12,14 @@ import geek.galaxy.cookieclicker.R;
 
 public class HighScoreActivity extends AppCompatActivity {
 
+    public static final String EXTRA_HIGH_SCORE = "HIGH_SCORE";
     private static final String TAG = HighScoreActivity.class.getName();
+    private static final HighScore EMPTY_HIGH_SCORE = new TopTenHighScore();
+    private static final String NEW_LINE = "\n";
+
     private ArrayList<Integer> scores = null;
     private TextView highScoreText = null;
+    private HighScore highScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,31 +29,34 @@ public class HighScoreActivity extends AppCompatActivity {
         // gets reference for text view (label) so it could be updated later
         highScoreText = findViewById(R.id.highscore_list);
 
-        add_scores_to_highscore();
-    }
-
-    public void add_scores_to_highscore(){
-        String text = mock_highscore();
-
-        highScoreText.setText(text);
-    }
-
-    public String mock_highscore(){
-        scores = new ArrayList<>();
-        for (int i=0 ; i < 10; i++){
-            scores.add(i * 10);
+        // we need to check if extra contains given object, because Activities could also
+        // ran in other contexts. So it's crucial to handle empty extra values gently.
+        // More reading:
+        // https://developer.android.com/reference/android/app/Activity
+        // https://developer.android.com/reference/android/content/Intent
+        if( getIntent().hasExtra(EXTRA_HIGH_SCORE)){
+            this.highScore = (HighScore) getIntent().getSerializableExtra(EXTRA_HIGH_SCORE);
+        } else {
+            this.highScore = EMPTY_HIGH_SCORE;
         }
-        Collections.shuffle(scores, new Random());
 
-        StringBuilder stringBuilder = new StringBuilder();
-
-        stringBuilder.append("HIGH SCORE\n");
-
-        for( Integer each : scores){
-            stringBuilder.append(each);
-            stringBuilder.append("\n");
-        }
-        return stringBuilder.toString();
+        renderOn(highScoreText);
     }
+
+    private void renderOn(TextView highScoreText) {
+        int[] scores = highScore.sortedScores(HighScore.DESCENDING );
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("High Scores:").append(NEW_LINE);
+        sb.append("-----------").append(NEW_LINE);
+
+        // #1 For loop example
+        for(int i=1; i<scores.length+1; i++){
+            sb.append(String.format("%s - %s", i, scores[i-1])).append(NEW_LINE);
+        }
+
+        highScoreText.append(sb.toString());
+    }
+
 
 }

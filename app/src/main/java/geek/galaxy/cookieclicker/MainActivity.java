@@ -11,35 +11,42 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 
+import geek.galaxy.cookieclicker.highscore.HighScore;
 import geek.galaxy.cookieclicker.highscore.HighScoreActivity;
+import geek.galaxy.cookieclicker.highscore.RandomHighScore;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getName();
-    public static final int POINT = 1;
-    public static final double SECOND = 1d;
-    public static final int SECOND_LENGTH = 1000;
-    public static final int INITIAL_SCORE = 0;
-    public static final double INITIAL_TIME = 0.0;
-    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.0");
-    public static final int VIBRATION_LENGTH = 100;
-
-    // GAME STATE
-    public static Integer score = INITIAL_SCORE;
+    private static final int POINT = 1;
+    private static final double SECOND = 1d;
+    private static final int SECOND_LENGTH = 1000;
+    private static final int INITIAL_SCORE = 0;
+    private static final double INITIAL_TIME = 0.0;
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.0");
+    private static final int VIBRATION_LENGTH = 100;
+    private static Integer score = INITIAL_SCORE;
     private Double time = INITIAL_TIME;
 
-
+    // GAME STATE
+    private HighScore highScore;
     private boolean isPlaying = false;
+
+    // Layout handlers
     private TextView timeView = null;
     private TextView scoreView = null;
 
+    // Mobile device toys
     private Vibrator vibrator = null;
 
+    // Android Message Queue mambo jumbo
+    // https://developer.android.com/reference/android/os/Handler
     private Handler handler = new Handler();
 
     private Runnable timeRunnable = new Runnable() {
         @Override
         public void run() {
+            // #11 if-statement example
             if (!isPlaying) {
                 return;
             }
@@ -68,9 +75,13 @@ public class MainActivity extends AppCompatActivity {
 
         // get vibrator handle
         vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+
+        //TODO #7225 Use Top Ten High Scores implementation
+        highScore = new RandomHighScore();
     }
 
     public void pressCookie(View view) {
+        // #12 if-statement example
         if (isPlaying) {
             incrementScore();
             updateScoreLabel();
@@ -109,20 +120,24 @@ public class MainActivity extends AppCompatActivity {
     public void stopGame(View view) {
         // stopGame
         isPlaying = false;
+
+        // save current score
+        highScore.addMyScore(score);
     }
 
     public void goToScore(View view) {
         Log.d(TAG, "Go to HighScoreActivity View");
         Intent intent = new Intent(MainActivity.this, HighScoreActivity.class);
+        intent.putExtra("HIGH_SCORE", this.highScore);
         startActivity(intent);
     }
 
-    public void upgradeBasic(View view) {
-        // Obsługa Buttona Basic
+    public void upgradeBasicButtonClicked(View view) {
+        //TODO #4123 implementation of 1-st stage, smaller bonus
     }
 
-    public void upgradeExtra(View view) {
-        // Obsługa Buttona Extra
+    public void upgradeExtraButtonClicked(View view) {
+        //TODO #0321 implementation of 2-st stage, bigger bonus
     }
 
 }
