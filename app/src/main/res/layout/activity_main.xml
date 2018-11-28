@@ -115,12 +115,12 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/reset"
+            android:id="@+id/stop"
             android:layout_width="8dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="reset"
-            android:text="@string/reset_btn_txt" />
+            android:onClick="stopGame"
+            android:text="@string/stop_btn_txt" />
 
         <Button
             android:id="@+id/score"

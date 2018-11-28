@@ -11,12 +11,24 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 
+import geek.galaxy.cookieclicker.highscore.HighScoreActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getName();
+    public static final int POINT = 1;
+    public static final double SECOND = 1d;
+    public static final int SECOND_LENGTH = 1000;
+    public static final int INITIAL_SCORE = 0;
+    public static final double INITIAL_TIME = 0.0;
+    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.0");
+    public static final int VIBRATION_LENGTH = 100;
 
-    public static Integer score = 0;
-    private Double time = 0.0;
+    // GAME STATE
+    public static Integer score = INITIAL_SCORE;
+    private Double time = INITIAL_TIME;
+
+
     private boolean isPlaying = false;
     private TextView timeView = null;
     private TextView scoreView = null;
@@ -31,44 +43,62 @@ public class MainActivity extends AppCompatActivity {
             if (!isPlaying) {
                 return;
             }
-            time += 1d;
-            updateTime();
-            updateScore();
-            handler.postDelayed(timeRunnable, 1000);
+            //increment time
+            time += SECOND;
+
+            //update labels
+            updateTimeLabel();
+            updateScoreLabel();
+
+            //schedule next time incrementation so it would create a loop
+            handler.postDelayed(timeRunnable, SECOND_LENGTH);
         }
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //set main activity layout
         setContentView(R.layout.activity_main);
 
+        // get textviews (labels) to update in future
         scoreView = findViewById(R.id.scoreView);
         timeView = findViewById(R.id.timeView);
 
+        // get vibrator handle
         vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
     }
 
     public void pressCookie(View view) {
         if (isPlaying) {
-            score += 1;
-            updateScore();
+            incrementScore();
+            updateScoreLabel();
         } else {
-            handler.postDelayed(timeRunnable, 100);
-            score = 1;
-            updateScore();
-            isPlaying = true;
+            // Game is currently stopped than start game
+            incrementScore();
+            updateScoreLabel();
+            startGame();
         }
-        vibrator.vibrate(100);
+
+        vibrator.vibrate(VIBRATION_LENGTH);
     }
 
-    public void updateTime() {
-        DecimalFormat df = new DecimalFormat("0.0");
-        timeView.setText("Time: " + df.format(time));
+    private void startGame() {
+        isPlaying = true;
+        handler.postDelayed(timeRunnable, 100);
     }
 
-    public void updateScore(){
-        scoreView.setText("Score: " +score.toString());
+    private void incrementScore() {
+        this.score += POINT;
+    }
+
+    public void updateTimeLabel() {
+        timeView.setText(String.format("Time: %s", DECIMAL_FORMAT.format(time)));
+    }
+
+    public void updateScoreLabel(){
+        scoreView.setText(String.format("Score: %s", score.toString()));
     }
 
     public void exitGame(View view) {
@@ -76,13 +106,14 @@ public class MainActivity extends AppCompatActivity {
         finishAndRemoveTask();
     }
 
-    public void reset(View view) {
-       // reset
+    public void stopGame(View view) {
+        // stopGame
+        isPlaying = false;
     }
 
     public void goToScore(View view) {
-        Log.d(TAG, "Go to HighScore View");
-        Intent intent = new Intent(MainActivity.this, HighScore.class);
+        Log.d(TAG, "Go to HighScoreActivity View");
+        Intent intent = new Intent(MainActivity.this, HighScoreActivity.class);
         startActivity(intent);
     }
 

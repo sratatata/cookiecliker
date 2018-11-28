@@ -1,4 +1,4 @@
-package geek.galaxy.cookieclicker;
+package geek.galaxy.cookieclicker.highscore;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,18 +8,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class HighScore extends AppCompatActivity {
+import geek.galaxy.cookieclicker.R;
 
-    private static final String TAG = HighScore.class.getName();
+public class HighScoreActivity extends AppCompatActivity {
+
+    private static final String TAG = HighScoreActivity.class.getName();
     private ArrayList<Integer> scores = null;
-    private TextView highScore = null;
+    private TextView highScoreText = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_high_score);
 
-        highScore = findViewById(R.id.highscore_list);
+        // gets reference for text view (label) so it could be updated later
+        highScoreText = findViewById(R.id.highscore_list);
 
         add_scores_to_highscore();
     }
@@ -27,7 +30,7 @@ public class HighScore extends AppCompatActivity {
     public void add_scores_to_highscore(){
         String text = mock_highscore();
 
-        highScore.setText(text);
+        highScoreText.setText(text);
     }
 
     public String mock_highscore(){
