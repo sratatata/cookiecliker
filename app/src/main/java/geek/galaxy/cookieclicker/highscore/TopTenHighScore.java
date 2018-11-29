@@ -62,14 +62,15 @@ public class TopTenHighScore implements HighScore {
             }
             else
             {
-                for (int j = this.highScores.length - 1; j > i; j--){
-                    this.highScores[j] = this.highScores[j - 1];
-                }
-                this.highScores[i] = score;
                 break;
             }
             i++;
         }
+
+        for (int j = this.highScores.length - 1; j > lastLowerIdx; j--){
+            this.highScores[j] = this.highScores[j - 1];
+        }
+        this.highScores[lastLowerIdx] = score;
     }
 
     @Override
