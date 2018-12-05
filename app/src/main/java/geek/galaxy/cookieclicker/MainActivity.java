@@ -25,12 +25,13 @@ public class MainActivity extends AppCompatActivity {
     private static final double INITIAL_TIME = 0.0;
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.0");
     private static final int VIBRATION_LENGTH = 100;
-    private static Integer score = INITIAL_SCORE;
-    private Double time = INITIAL_TIME;
 
     // GAME STATE
     private HighScore highScore;
     private boolean isPlaying = false;
+    private Integer score = INITIAL_SCORE;
+    private Double time = INITIAL_TIME;
+
 
     // Layout handlers
     private TextView timeView = null;
