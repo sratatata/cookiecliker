@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     // Layout handlers
     private TextView timeView = null;
     private TextView scoreView = null;
+    private Button upgradeButton = null;
 
     // Mobile device toys
     private Vibrator vibrator = null;
@@ -67,11 +69,14 @@ public class MainActivity extends AppCompatActivity {
         // get textviews (labels) to update in future
         scoreView = findViewById(R.id.scoreView);
         timeView = findViewById(R.id.timeView);
+        upgradeButton = findViewById(R.id.upgrade);
 
         // get vibrator handle
         vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
 
         gameState = new GameState();
+
+        updateUpgradePriceLabel();
     }
 
     public void pressCookie(View view) {
@@ -123,11 +128,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void upgradeBasicButtonClicked(View view) {
-        //TODO #4123 implementation of 1-st stage, smaller bonus
-
         gameState.buyCookieMonster();
+        updateUpgradePriceLabel();
     }
 
+    private void updateUpgradePriceLabel() {
+        upgradeButton.setText(String.format("%s -%d$", getString(R.string.upgrade_btn_txt), CookieMonster.getCrrentPrice()));
+    }
 
 
     public void upgradeExtraButtonClicked(View view) {
