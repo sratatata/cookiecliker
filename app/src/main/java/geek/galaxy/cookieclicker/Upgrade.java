@@ -5,4 +5,5 @@ interface Upgrade {
     float PRICE_MULTIPLIER = 2.5f;
 
     void onCookieClick(GameState gameState);
+    void onTimeTick(GameState gameState);
 }

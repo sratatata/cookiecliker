@@ -9,4 +9,7 @@ public class Cage<T extends Upgrade> extends ArrayList<T> {
         }
     }
 
+    public void onTimeTick(GameState gameState) {
+        //todo Notify all monsters in given cage, that time has ticking
+    }
 }

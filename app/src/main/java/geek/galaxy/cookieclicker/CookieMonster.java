@@ -24,4 +24,9 @@ class CookieMonster implements Upgrade {
     public void onCookieClick(GameState gameState) {
         gameState.incrementScore(POINTS);
     }
+
+    @Override
+    public void onTimeTick(GameState gameState) {
+        //do nothing
+    }
 }

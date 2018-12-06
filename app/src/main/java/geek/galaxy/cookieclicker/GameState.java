@@ -18,7 +18,7 @@ public class GameState{
     private java.lang.Double time;
 
     private Cage<Upgrade> cookieMonsters;
-    //TODO #2131 Add cage for hungryCookieMonsters;
+    private Cage<Upgrade> hungryCookieMonsters;
 
     public GameState()	{
         score = INITIAL_SCORE;
@@ -44,6 +44,9 @@ public class GameState{
 
     public void incrementTime(double second) {
         time += second;
+
+        hungryCookieMonsters.onTimeTick(this);
+        cookieMonsters.onTimeTick(this);
     }
 
     public void startGame() {
@@ -90,5 +93,6 @@ public class GameState{
 
         //process upgrades point
         cookieMonsters.onCookieClick(this);
+        hungryCookieMonsters.onCookieClick(this);
     }
 }
