@@ -45,8 +45,12 @@ public class GameState{
     public void incrementTime(double second) {
         time += second;
 
-        hungryCookieMonsters.onTimeTick(this);
-        cookieMonsters.onTimeTick(this);
+        if(null != hungryCookieMonsters) {
+            hungryCookieMonsters.onTimeTick(this);
+        }
+        if(null != cookieMonsters) {
+            cookieMonsters.onTimeTick(this);
+        }
     }
 
     public void startGame() {
@@ -92,7 +96,11 @@ public class GameState{
         incrementScore(BASE_POINT);
 
         //process upgrades point
-        cookieMonsters.onCookieClick(this);
-        hungryCookieMonsters.onCookieClick(this);
+        if(null != cookieMonsters) {
+            cookieMonsters.onCookieClick(this);
+        }
+        if(null != hungryCookieMonsters) {
+            hungryCookieMonsters.onCookieClick(this);
+        }
     }
 }
