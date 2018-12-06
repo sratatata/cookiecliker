@@ -21,17 +21,11 @@ public class MainActivity extends AppCompatActivity {
     private static final int POINT = 1;
     private static final double SECOND = 1d;
     private static final int SECOND_LENGTH = 1000;
-    private static final int INITIAL_SCORE = 0;
-    private static final double INITIAL_TIME = 0.0;
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.0");
     private static final int VIBRATION_LENGTH = 100;
 
     // GAME STATE
-    private HighScore highScore;
-    private boolean isPlaying = false;
-    private Integer score = INITIAL_SCORE;
-    private Double time = INITIAL_TIME;
-
+    private GameState gameState;
 
     // Layout handlers
     private TextView timeView = null;
@@ -48,11 +42,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             //EX#11 if-statement example
-            if (!isPlaying) {
+            if (!gameState.isPlaying()) {
                 return;
             }
             //increment time
-            time += SECOND;
+            gameState.incrementTime(SECOND);
 
             //update labels
             updateTimeLabel();
@@ -77,18 +71,18 @@ public class MainActivity extends AppCompatActivity {
         // get vibrator handle
         vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
 
-        //TODO #7225 Use Top Ten High Scores implementation
-        highScore = new RandomHighScore();
+        gameState = new GameState();
     }
 
     public void pressCookie(View view) {
         //EX#12 if-statement example
-        if (isPlaying) {
-            incrementScore();
+        if (gameState.isPlaying()) {
+//            gameState.incrementScore(POINT);
+            gameState.onCookieClick();
             updateScoreLabel();
         } else {
             // Game is currently stopped than start game
-            incrementScore();
+            gameState.onCookieClick();
             updateScoreLabel();
             startGame();
         }
@@ -97,20 +91,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startGame() {
-        isPlaying = true;
+        gameState.startGame();
         handler.postDelayed(timeRunnable, 100);
     }
 
-    private void incrementScore() {
-        this.score += POINT;
-    }
-
     public void updateTimeLabel() {
-        timeView.setText(String.format("Time: %s", DECIMAL_FORMAT.format(time)));
+        timeView.setText(String.format("Time: %s", DECIMAL_FORMAT.format(gameState.getCurrentTime())));
     }
 
     public void updateScoreLabel(){
-        scoreView.setText(String.format("Score: %s", score.toString()));
+        scoreView.setText(String.format("Score: %s", gameState.getScore().toString()));
     }
 
     public void exitGame(View view) {
@@ -120,22 +110,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void stopGame(View view) {
         // stopGame
-        isPlaying = false;
-
+        gameState.stopGame();
         // save current score
-        highScore.addMyScore(score);
+        gameState.saveCurrentScore();
     }
 
     public void goToScore(View view) {
         Log.d(TAG, "Go to HighScoreActivity View");
         Intent intent = new Intent(MainActivity.this, HighScoreActivity.class);
-        intent.putExtra("HIGH_SCORE", this.highScore);
+        intent.putExtra("HIGH_SCORE", gameState.getHighScore());
         startActivity(intent);
     }
 
     public void upgradeBasicButtonClicked(View view) {
         //TODO #4123 implementation of 1-st stage, smaller bonus
+
+        gameState.buyCookieMonster();
     }
+
+
 
     public void upgradeExtraButtonClicked(View view) {
         //TODO #0321 implementation of 2-st stage, bigger bonus
