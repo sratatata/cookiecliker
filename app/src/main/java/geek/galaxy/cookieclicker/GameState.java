@@ -7,6 +7,9 @@ public class GameState{
     private static final int INITIAL_SCORE = 0;
     private static final double INITIAL_TIME = 0.0;
     private static final int BASE_POINT = 1;
+    private static final boolean SUCCESS_TRANSACTION_STATUS = true;
+    private static final boolean INCUFICIENT_FOUNDS_STATUS = false;
+
 
     private HighScore highScore;
 
@@ -15,6 +18,7 @@ public class GameState{
     private java.lang.Double time;
 
     private Cage<Upgrade> cookieMonsters;
+    //TODO #2131 Add cage for hungryCookieMonsters;
 
     public GameState()	{
         score = INITIAL_SCORE;
@@ -22,6 +26,7 @@ public class GameState{
         //TODO #7225 Use Top Ten High Scores implementation
         highScore = new RandomHighScore();
         cookieMonsters = new Cage<>();
+        CookieMonster.reset();
     }
 
 
@@ -70,10 +75,13 @@ public class GameState{
         return highScore;
     }
 
-    public void buyCookieMonster() {
+    public boolean buyCookieMonster() {
         if(this.score >= CookieMonster.getCrrentPrice()) {
             this.score = this.score - CookieMonster.getCrrentPrice();
             cookieMonsters.add(new CookieMonster());
+            return SUCCESS_TRANSACTION_STATUS;
+        }else {
+            return INCUFICIENT_FOUNDS_STATUS;
         }
     }
 

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -32,13 +33,15 @@ public class MainActivity extends AppCompatActivity {
     private TextView timeView = null;
     private TextView scoreView = null;
     private Button upgradeButton = null;
+    private ImageView imgView = null;
+    private TextView textView = null;
 
     // Mobile device toys
     private Vibrator vibrator = null;
 
     // Android Message Queue mambo jumbo
-    // https://developer.android.com/reference/android/os/Handler
     private Handler handler = new Handler();
+    // https://developer.android.com/reference/android/os/Handler
 
     private Runnable timeRunnable = new Runnable() {
         @Override
@@ -70,13 +73,15 @@ public class MainActivity extends AppCompatActivity {
         scoreView = findViewById(R.id.scoreView);
         timeView = findViewById(R.id.timeView);
         upgradeButton = findViewById(R.id.upgrade);
+        textView = findViewById(R.id.cookieEaterText1);
+        imgView = findViewById(R.id.cookieEater1);
 
         // get vibrator handle
         vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
 
         gameState = new GameState();
 
-        updateUpgradePriceLabel();
+        updateAll();
     }
 
     public void pressCookie(View view) {
@@ -118,6 +123,13 @@ public class MainActivity extends AppCompatActivity {
         gameState.stopGame();
         // save current score
         gameState.saveCurrentScore();
+        reset();
+    }
+
+    private void reset() {
+        gameState = new GameState();
+        updateAll();
+        hideCookieMonster();
     }
 
     public void goToScore(View view) {
@@ -128,14 +140,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void upgradeBasicButtonClicked(View view) {
-        gameState.buyCookieMonster();
-        updateUpgradePriceLabel();
+        boolean isSucces = gameState.buyCookieMonster();
+        if(isSucces){
+            updateUpgradePriceLabel();
+            showCookieMonster();
+        }
     }
 
     private void updateUpgradePriceLabel() {
         upgradeButton.setText(String.format("%s -%d$", getString(R.string.upgrade_btn_txt), CookieMonster.getCrrentPrice()));
     }
 
+    private void updateAll(){
+        updateUpgradePriceLabel();
+        updateTimeLabel();
+        updateScoreLabel();
+    }
+
+    public void showCookieMonster(){
+        imgView.setVisibility(View.VISIBLE);
+        textView.setVisibility(View.VISIBLE);
+        textView.setText("x"+gameState.getCookieMonsters().size());
+    }
+
+    public void hideCookieMonster(){
+        imgView.setVisibility(View.INVISIBLE);
+        textView.setVisibility(View.INVISIBLE);
+    }
 
     public void upgradeExtraButtonClicked(View view) {
         //TODO #0321 implementation of 2-st stage, bigger bonus

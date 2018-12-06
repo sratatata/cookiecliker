@@ -16,6 +16,10 @@ class CookieMonster implements Upgrade {
         return currentPrice;
     }
 
+    public static void reset() {
+        currentPrice = INITIAL_PRICE;
+    }
+
     @Override
     public void onCookieClick(GameState gameState) {
         gameState.incrementScore(POINTS);
